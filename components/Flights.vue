@@ -89,7 +89,7 @@
     <div class="right-main">
       <div class="right-move-border" />
       <div class="right-time">
-        {{ currentTime }}
+        {{ calcTime }}
       </div>
       <flight-list
         ref="flightList"
@@ -121,10 +121,10 @@ export default {
     ContinentalFlight
   },
   props: {
-    currentTime: [Boolean, String],
     displayAtPVG: [Object, Boolean]
   },
   data: () => ({
+    nowDate: new Date().getTime(),
     enableFlightListChange: false,
     checkBox: {
       PVG: true,
@@ -148,6 +148,15 @@ export default {
     }
   }),
   computed: {
+    calcTime () {
+      const timeStr = this.nowDate
+      const t = parseInt(timeStr)
+      if (isNaN(t)) { return }
+      const time = new Date(t)
+      const month = '' + (time.getMonth() + 1)
+      const day = '' + time.getDate()
+      return `${time.getFullYear()}.${month.length === 2 ? month : '0' + month}.${day.length === 2 ? day : '0' + day} ${time.toTimeString().slice(0, 8)}`
+    },
     currentScreen: {
       get () {
         return this.$store.state.currentScreen
@@ -161,7 +170,6 @@ export default {
     checkBox: {
       handler (val, old) {
         if (!val) { return }
-
         this.changeCheckBoxColor('PVG_BTN', val.PVG, '#fff', '#5f6769')
         this.changeCheckBoxColor('SHA_BTN', val.SHA, '#fff', '#5f6769')
         this.changeCheckBoxColor('CARGO_BTN', val.CARGO, '#fff', '#5f6769')
@@ -173,10 +181,6 @@ export default {
             this.$refs.flightList.updateData([])
             return
           }
-          // else if (val['PVG'] && val['SHA']) {
-          //     this.$refs['flightList'].updateData(this.continentalResult['flights'])
-          //     return
-          //   }
           this.getContinentalDetail(this.currentContinental, {
             pvg: val.PVG,
             sha: val.SHA
@@ -192,6 +196,12 @@ export default {
     }
   },
   created () {
+    this.getDate()
+    this.dateTimer = setInterval(() => {
+      if (!isNaN(this.nowDate)) {
+        this.nowDate += 1000
+      }
+    }, 1000)
     this.entryOrExit = entryOrExit
   },
   mounted () {
@@ -209,8 +219,19 @@ export default {
   },
   destroyed () {
     clearInterval(this.updateTimer)
+    clearInterval(this.dateTimer)
   },
   methods: {
+    getDate () {
+      this.axios.get('/time').then(({ status, data }) => {
+        if (status === 200) {
+          this.nowDate = parseInt(data)
+        }
+      }).catch((err) => {
+        console.log(err)
+        this.nowDate = new Date().getTime()
+      })
+    },
     onChangeNation (nation) {
       const self = this
       const params = {
@@ -219,9 +240,6 @@ export default {
       }
       this.currentRegion = nation
       this.getContinentalDetail(this.currentContinental, params, nation).then((data) => {
-        // self.continentalResult['flights'] = data['flights']
-        // self.currentContinental = data['name']
-        // self.currentScreen = 1
         self.$refs.flightList.clearData()
 
         self.$refs.flightList.updateData(data.flights)
@@ -303,11 +321,7 @@ export default {
         self.currentContinental = data.name
         self.currentScreen = 1
 
-        this.$refs.mapChart.update(value, undefined, () => {
-          // self.enableFlightListChange = false
-          // if (!self.checkBox['PVG']) self.checkBox['PVG'] = true
-          // if (!self.checkBox['SHA']) self.checkBox['SHA'] = true
-        })
+        this.$refs.mapChart.update(value)
       }).catch((err) => {
         console.log(err)
       })

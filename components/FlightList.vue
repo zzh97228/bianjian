@@ -76,7 +76,7 @@ export default {
   methods: {
     updateData (data) {
       this.dataList = data || []
-
+      // 更新完数据后异步加载dom以免swiper更新数据时造成卡顿
       setTimeout(() => {
         this.loading = false
       }, 0)

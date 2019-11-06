@@ -8,12 +8,8 @@
         <img :src="logo" alt="">
       </div>
     </div>
-    <nuxt :current-time="calcTime" />
+    <nuxt />
   </div>
-
-<!--  <div>-->
-<!--    <nuxt />-->
-<!--  </div>-->
 </template>
 <script>
 import logo1 from '@/assets/images/logo.png'
@@ -23,18 +19,6 @@ export default {
   data: () => ({
     logo: logo1
   }),
-  computed: {
-    calcTime () {
-      const timeStr = this.nowDate
-      const t = parseInt(timeStr)
-      if (isNaN(t)) { return }
-      const time = new Date(t)
-      const month = '' + (time.getMonth() + 1)
-      const day = '' + time.getDate()
-      return `${time.getFullYear()}.${month.length === 2 ? month : '0' + month}.${day.length === 2 ? day : '0' + day} ${time.toTimeString().slice(0, 8)}`
-    }
-
-  },
   mounted () {
     if (this.$nuxt.$route.path.includes('/pvg')) {
       this.logo = logo2
@@ -46,30 +30,6 @@ export default {
         return config
       })
     }
-  },
-  created () {
-    this.getDate()
-    this.dateTimer = setInterval(() => {
-      if (!isNaN(this.nowDate)) {
-        this.nowDate += 1000
-      }
-    }, 1000)
-  },
-  destroyed () {
-    clearInterval(this.dateTimer)
-  },
-  methods: {
-    getDate () {
-      this.axios.get('/time').then(({ status, data }) => {
-        if (status === 200) {
-          this.nowDate = parseInt(data)
-        }
-      }).catch((err) => {
-        console.log(err)
-        this.nowDate = new Date().getTime()
-      })
-    }
-
   }
 
 }

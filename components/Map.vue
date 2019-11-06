@@ -42,16 +42,6 @@ export default {
 
   }),
   watch: {
-    // options: {
-    //   handler: function (val, old) {
-    //     if (!this.chart && val) {
-    //       this.chart = this.$echarts.init(this.$el, null, { renderer: 'canvas' })
-    //     } else {
-    //       this.chart.setOption(val, val !== old, true)
-    //     }
-    //   },
-    //   deep: true
-    // },
     checkBoxPvg: {
       handler (val, old) {
         this.checkAirport(val, true)
@@ -263,30 +253,6 @@ export default {
             }
           }
         }
-        // const scatterData = {
-        //   value: next.coordinates,
-        //   name: next.portName
-        // }
-        // if (!prev[scatterType]) {
-        //   const pointScatter = JSON.parse(JSON.stringify(specialScatter))
-        //   pointScatter['pvg'] = pvg
-        //   pointScatter['airbus'] = airbus
-        //   pointScatter['special'] = true
-        //
-        //   pointScatter['animationDelay'] = function (idx) {
-        //     return idx * 1000 + 10
-        //   }
-        //   pointScatter['animationDelayUpdate'] = function (idx) {
-        //     return idx * 1000 + 10
-        //   }
-        //   pointScatter['symbol'] = POINT_SYMBOL
-        //   pointScatter['symbolSize'] = 30
-        //   pointScatter['zlevel'] = aLevel++
-        //
-        //   pointScatter['data'].push(scatterData)
-        //   prev[scatterType] = pointScatter
-        // }
-        //
         if (!prev[lineType]) {
           const tempLineModel = JSON.parse(JSON.stringify(this.lineModel))
           tempLineModel.name = lineType
