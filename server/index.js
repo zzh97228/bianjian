@@ -1,7 +1,14 @@
 const Koa = require('koa')
+const consola = require('consola')
+const { Nuxt, Builder } = require('nuxt')
+
 const app = new Koa()
+
 const Router = require('koa-router')
 const cors = require('koa2-cors')
+const config = require('../nuxt.config.js')
+config.dev = app.env !== 'production'
+
 const router = new Router()
 
 const continentalNames = ['Asia', 'Africa', 'Europe', 'America', 'Oceania']
@@ -147,10 +154,38 @@ router.get('/getFlightLines', (ctx) => {
   ctx.body = result
 })
 
-app.use(cors())
-app.use(router.routes())
-app.use(router.allowedMethods())
-const port = 8087
-app.listen(port, () => {
-  console.log(`listen on ${port}`)
-})
+async function start () {
+  // Instantiate nuxt.js
+  const nuxt = new Nuxt(config)
+
+  const {
+    host = process.env.HOST || '0.0.0.0',
+    port = process.env.PORT || 3002
+  } = nuxt.options.server
+
+  // Build in development
+  if (config.dev) {
+    const builder = new Builder(nuxt)
+    await builder.build()
+  } else {
+    await nuxt.ready()
+  }
+  app.use(cors())
+  app.use(router.routes())
+  app.use(router.allowedMethods())
+
+  app.use((ctx) => {
+    ctx.status = 200
+    ctx.respond = false // Bypass Koa's built-in response handling
+    ctx.req.ctx = ctx // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
+    nuxt.render(ctx.req, ctx.res)
+  })
+
+  app.listen(port, host)
+  consola.ready({
+    message: `Server listening on http://${host}:${port}`,
+    badge: true
+  })
+}
+
+start()

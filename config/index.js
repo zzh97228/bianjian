@@ -21,6 +21,6 @@ export const entryOrExit = {
 
 export const baseURL = {
   'production': 'http://6.0.96.95:8081/hxdp/airline',
-  'local': 'http://localhost:8087',
+  'local': 'http://localhost:3002',
   'dev': 'http://192.168.100.6:8081/hxdp/airline'
 }
