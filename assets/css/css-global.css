@@ -6,7 +6,7 @@
 html, body {
     font-family: microsoft yahei;
     height: 100%;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 .wrap {

@@ -7,7 +7,7 @@ html, body {
   font-family: microsoft yahei;
   height: 100%;
   /*font-size: 16px;*/
-  /* overflow: hidden; */
+   overflow: hidden;
 }
 
 .wrap {

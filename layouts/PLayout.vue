@@ -11,23 +11,25 @@
     <nuxt />
   </div>
 </template>
+
 <script>
-import logo1 from '@/assets/images/logo.png'
+import logo2 from '@/assets/images/logo-pvg.png'
 
 export default {
-  name: 'Default',
+  name: 'PLayout',
   data: () => ({
-    logo: logo1
-  })
-
+    logo: logo2
+  }),
+  mounted () {
+    this.axios.interceptors.request.use((config) => {
+      if (!config.params) {
+        config.params = {}
+        config.params.airport = 'PVG'
+      }
+      return config
+    })
+  }
 }
 </script>
-
 <style>
-  /*@import "../assets/css/css-global.css";*/
-
-  /*html {*/
-  /*  font-size: 240px;*/
-  /*}*/
-
 </style>

@@ -25,6 +25,7 @@ export default {
   css: [
     // '@/assets/css/css-global.css',
     // '@/assets/css/css-pvg.css',
+    '@/assets/css/main.css',
     'swiper/dist/css/swiper.css'
   ],
   /*

@@ -13,21 +13,11 @@
 </template>
 <script>
 import logo1 from '@/assets/images/logo.png'
-
 export default {
-  name: 'Default',
+  name: 'RawLayout',
   data: () => ({
     logo: logo1
   })
 
 }
 </script>
-
-<style>
-  /*@import "../assets/css/css-global.css";*/
-
-  /*html {*/
-  /*  font-size: 240px;*/
-  /*}*/
-
-</style>

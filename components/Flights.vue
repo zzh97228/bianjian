@@ -23,7 +23,7 @@
     <div class="middle-main">
       <div class="main-chart">
         <figure v-if="showMap" class="map">
-          <geo-map
+          <flights-map
             ref="mapChart"
             :check-box-pvg="checkBox.PVG"
             :check-box-sha="checkBox.SHA"
@@ -104,17 +104,19 @@
 </template>
 
 <script>
+import FlightsMap from './FlightsMap'
 import { entryOrExit } from '@/config'
 import ContinentalFlight from '@/components/ContinentalFlight'
 import FlightList from '@/components/FlightList'
 import LeaveOrOut from '@/components/leaveOrOut'
 import FlightDetail from '@/components/FlightDetail'
-import GeoMap from '@/components/Map'
+// import GeoMap from '@/components/Map'
 
 export default {
   name: 'Flights',
   components: {
-    GeoMap,
+    FlightsMap,
+    // GeoMap,
     FlightDetail,
     LeaveOrOut,
     FlightList,

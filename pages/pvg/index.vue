@@ -4,9 +4,11 @@
 
 <script>
 // import '@/assets/css/css-pvg.css'
+
 import Flights from '@/components/Flights.vue'
 export default {
   name: 'Pvg',
+  layout: 'PLayout',
   components: {
     Flights
   }
@@ -15,4 +17,9 @@ export default {
 
 <style>
   @import "../../assets/css/css-pvg.css";
+
+  html {
+    font-size: 240px;
+  }
+
 </style>

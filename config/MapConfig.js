@@ -55,6 +55,7 @@ export const lineModel = {
   large: true,
   largeThreshold: 1000,
   zlevel: 3,
+  polyline: false,
   showSymbol: false,
   loop: false,
   symbol: ['none', 'none'],
@@ -63,7 +64,7 @@ export const lineModel = {
   progressive: 10,
   smooth: true,
   lineStyle: {
-    color: '#00f',
+    color: '#fff',
     width: 2,
     curveness: 0.2
     // emphasis: {
@@ -122,7 +123,7 @@ export const geoModel = {
     },
     layoutCenter: ['50%', '50%'],
     // 如果宽高比大于 1 则宽度为 100，如果小于 1 则高度为 100，保证了不超过 100x100 的区域
-    layoutSize: '100%'
+    layoutSize: '150%'
 
   },
   tooltip: {
