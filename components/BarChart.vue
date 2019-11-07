@@ -273,7 +273,7 @@ export default {
             show: true,
             position: 'left',
             color: '#fff',
-            fontSize: '10%'
+            fontSize: '8%'
           },
           barWidth: '13%',
           z: 10,
@@ -287,7 +287,7 @@ export default {
             show: true,
             position: 'right',
             color: '#fff',
-            fontSize: '10%'
+            fontSize: '8%'
 
           },
           barWidth: '13%',

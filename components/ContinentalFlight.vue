@@ -58,7 +58,7 @@ export default {
         width: '33%'
       }
       ],
-      fontSize: 40
+      fontSize: 30
     },
     partAttr: {
       grid: [{
@@ -71,7 +71,7 @@ export default {
         width: '24%'
       }
       ],
-      fontSize: 30
+      fontSize: 25
     }
   }),
   methods: {

@@ -272,6 +272,8 @@ export default {
     },
     pushBack () {
       this.currentScreen = 0
+      this.currentRegion = undefined
+      this.currentContinental = undefined
       setTimeout(() => {
         this.$refs.mapChart.update()
       }, 500)

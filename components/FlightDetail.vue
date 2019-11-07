@@ -185,7 +185,7 @@ export default {
       this.myBotSwiper.autoplay.start()
     },
     changeNation (nation) {
-      this.$emit('changeNation', nation)
+      this.$emit('changeNation', nation.trim())
     }
   }
 }
